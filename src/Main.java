@@ -1,4 +1,5 @@
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -12,6 +13,8 @@ public class Main {
         //mock data with first 2 employees, one cashier and another, admin 
         service.addEmployee("Gopolang Mothuba", "Cashier", 9000);
         service.addEmployee("Edith Mongwa", "Admin", 15000);
+
+        //due to above mock data id always starts at 3
 
         // data entry loop
 
@@ -29,13 +32,13 @@ public class Main {
                     updateEmployee();
                     break;
                 case 3:
-                    //deleteEmployeeById();
+                    deleteEmployeeById();
                     break;
                 case 4:
-                    //viewEmployeeById();
+                    viewEmployeeById();
                     break;
                 case 5:
-                    //viewAllEMployees();
+                    viewAllEmployees();
                     break;
                 case 6:
                     System.out.println("Exiting...");
@@ -65,9 +68,53 @@ public class Main {
         int id = getInteger("Enter the employee's ID you want to update: ");
 
         if(service.getByEmployeeId(id) == null){
-            
+            System.err.println("Employee with ID: " + id + " not found");
+            return;
         }
 
+        System.out.print("Enter new name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter new role: ");
+        String role = scanner.nextLine();
+        System.out.print("Enter salary: ");
+        double salary = scanner.nextDouble();
+        scanner.nextLine();
+
+        Employee updatedEmployee = service.updateEmployee(id, name, role, salary);
+        System.out.println(updatedEmployee);
+    }
+
+    private static void deleteEmployeeById(){
+        int id = getInteger("Enter ID of employee to be deleted: ");
+
+        boolean deleted = service.deleteByEmployeeId(id);
+        if (deleted) {
+            System.out.println("Employee with ID " + id + " deleted successfully.");
+        } else {
+            System.out.println("Employee with ID " + id + " not found. Could not delete.");
+        }
+    }
+
+        private static void viewAllEmployees() {
+        List<Employee> employees = service.getAllEmployees();
+        if (employees.isEmpty()) {
+            System.out.println("No employees found in the system.");
+        } else {
+            System.out.println("\n--- All Employees ---");
+            for (Employee emp : employees) {
+                System.out.println(emp);
+            }
+        }
+    }
+
+    private static void viewEmployeeById() {
+        int id = getInteger("Enter Employee ID to view: ");
+        Employee emp = service.getByEmployeeId(id);
+        if (emp != null) {
+            System.out.println("Employee found: " + emp);
+        } else {
+            System.out.println("Employee with ID " + id + " not found.");
+        }
     }
 
     //helper method receiving prompt and returning choice
