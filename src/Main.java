@@ -11,7 +11,7 @@ public class Main {
 
     public static void main(String [] args){
 
-        System.out.println("****************EMPLOYEE MANAGEMENT SYSTEM****************");
+        
 
         //mock data with first 2 employees, one cashier and another, admin 
         service.addEmployee("Gopolang Mothuba", "Cashier", 9000);
