@@ -50,10 +50,8 @@ public class EmployeeService {
     public boolean deleteByEmployeeId(int id){
         if(employeeMap.containsKey(id)){
             employeeMap.remove(id);
-            // ensuring employee is removed
-            if(employeeMap.containsKey(id)){
+            // ensuring employee is removed            
                 return true;
-            }else return false;
         }
         return false;
     }
