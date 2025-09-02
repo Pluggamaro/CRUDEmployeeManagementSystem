@@ -103,7 +103,7 @@ public class Main {
         if (employees.isEmpty()) {
             System.out.println("No employees found in the system.");
         } else {
-            System.out.println("\n--- All Employees ---");
+            System.out.println("======== All Employees ========");
             for (Employee emp : employees) {
                 System.out.println(emp);
             }
